@@ -2,7 +2,7 @@
 Course: CSE 351
 Team  : Week 04
 File  : team.py
-Author: <Student Name>
+Author: Spencer Gamero
 
 See instructions in canvas for this team activity.
 
@@ -60,11 +60,25 @@ def producer():
     for i in range(PRIME_COUNT):
         number = random.randint(1, 1_000_000_000_000)
         # TODO - place on queue for workers
+        que = Queue351()
 
     # TODO - select one producer to send the "All Done" message
 
 # ---------------------------------------------------------------------------
-def consumer():
+def consumer(q,s):
+    count = 0
+    while count < MAX_QUEUE_SIZE:
+        i = q.get()
+        if is_prime(i) is not True:
+            continue
+        elif i is "All Done":
+            break
+        else:
+            if os.path.exists(FILENAME):
+                with open(FILENAME, 'a') as f:
+                    f.writelines(i)
+        count += 1 
+
     # TODO - get values from the queue and check if they are prime
     # TODO - if prime, write to the file
     # TODO - if "All Done" message, exit the loop
@@ -79,11 +93,20 @@ def main():
 
     # TODO - create semaphores for the queue (see Queue351 class)
 
+    semaphore = threading.Semaphore()
+    semaphore2 = threading.Semaphore)_
     # TODO - create barrier
-
+    barrier = threading.Barrier()
     # TODO - create producers threads (see PRODUCERS value)
-
+    producer()
+    producer()
+    producer()
     # TODO - create consumers threads (see CONSUMERS value)
+    consumer()
+    consumer()
+    consumer()
+    consumer()
+    consumer()
 
     if os.path.exists(FILENAME):
         with open(FILENAME, 'r') as f:
